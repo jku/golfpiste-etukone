@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+  <script src="jquery.js"></script>
+  <script src="jquery-jsoncookie.js"></script>
+  <script src="benefits.js"></script>
+  <script src="benefits-2012.json"></script>
+</head>
+<body>
+  <p>Kattaa vain Uudenmaan edut kaudelle 2012.</p>
+  <div> 
+    <span title="Esim '3.6.', 'tänään' tai 'tiistaina'">
+      <input type="text" id="date_entry" value="tänään" size="8"></input>
+    </span>
+    <span title="Esim '14:00-17:00', 'ennen 14:00' tai '17 jälkeen'">
+      , teeaika <input type="text" id="time_entry" value="16 jälkeen" size="8"></input>:
+    </span>
+  </div>
+
+  <br/><br/>
+
+  <div id="benefits">
+     <table></table>
+  </div>
+  
+  <script>
+    var used_benefits;
+
+    function add_string_cell (row, element, str)
+    {
+      var cell = document.createElement (element);
+      var textNode = document.createTextNode (str);
+      cell.align = "left";
+      cell.appendChild (textNode);
+      row.appendChild (cell);
+    }
+
+    function update_row (row, check)
+    {
+      if (check.checked) {
+        row.title = "Etu on käytetty";
+        row.setAttribute ("style", "color:gray;font-size:90%");
+      } else {
+        row.title = "Etua ei ole käytetty";
+        row.setAttribute ("style", "font-size:90%");
+      }
+    }
+
+    function on_check_changed (event)
+    {
+      var check = event.target;
+      var row = check.parentNode.parentNode;
+      var options = {"expires": 1000*60*60*24*356};
+      if (check.checked)
+        used_benefits[check.id] = true;
+      else
+        delete used_benefits[check.id];
+      $.cookie("golfpiste-used-benefits", used_benefits, options);
+
+      update_row (row, check);
+    }
+
+    function add_check_cell (row, id, checked)
+    {
+      var cell = document.createElement ("td");
+      var check = document.createElement ("input");
+      check.type="checkbox";
+      check.class = "played-check";
+      check.id = id;
+      check.checked = checked;
+      check.onchange = on_check_changed;
+
+      cell.appendChild (check);
+      row.appendChild (cell);
+
+      update_row (row, check);
+    }
+
+    function parse_informal_date (date_string)
+    {
+      var date = new Date();
+      var extra_days;
+      var lc_date = date_string.toLowerCase();
+
+      switch (lc_date) {
+        case "tänään":
+          break;
+        case "huomenna":
+          extra_days = 1;
+          break;
+        case "maanantaina":
+        case "maanantai":
+        case "ma":
+          extra_days = 1 - date.getDay();
+          break;
+        case "tiistaina":
+        case "tiistai":
+        case "ti":
+          extra_days = 2 - date.getDay();
+          break;
+        case "keskiviikkona":
+        case "keskiviikko":
+        case "ke":
+          extra_days = 3 - date.getDay();
+          break;
+        case "torstaina":
+        case "torstai":
+        case "to":
+          extra_days = 4 - date.getDay();
+          break;
+        case "perjantaina":
+        case "perjantai":
+        case "pe":
+          extra_days = 5 - date.getDay();
+          break;
+        case "lauantaina":
+        case "lauantai":
+        case "la":
+          extra_days = 6 - date.getDay();
+          break;
+        case "sunnuntaina":
+        case "sunnuntai":
+        case "su":
+          extra_days = 7 - date.getDay();
+          break;
+        default:
+          date = parse_date (date_string);
+      }
+
+      if (extra_days) {
+        if (extra_days < 1)
+          extra_days += 7;
+        date.setTime (date.getTime() + extra_days * 1000 * 60 * 60 * 24);
+        date.setHours (0);
+        date.setMinutes (0);
+        date.setSeconds (0);
+      }
+
+      return date;
+    }
+
+
+    function reload_table (date_str, time_str)
+    {
+
+      var start;
+      var end;
+      var show_all = false;
+      var div = document.getElementById ("benefits");
+      var table = document.createElement("table");
+      var row = document.createElement("tr");
+
+      add_string_cell (row, "th", "");
+      add_string_cell (row, "th", "#");
+      add_string_cell (row, "th", "Kenttä");
+      add_string_cell (row, "th", "Etu");
+      table.appendChild (row);
+
+      if (date_str == "") {
+        show_all = true;
+      } else {
+        start = parse_informal_date (date_str);
+        if (start) {
+          end = new Date (start.getTime());
+          end.setHours (23);
+          end.setMinutes (59);
+
+          /* take into account the time limits */
+
+          var substrings = time_str.split ("-");
+          if (substrings.length == 2) {
+            var new_start = parse_time (start, substrings[0]);
+            if (new_start)
+              start = new_start;
+            else {
+              start.setHours (0);
+              start.setMinutes (0);
+            }
+            
+            var new_end = parse_time (end, substrings[1]);
+            if (new_end)
+              end = new_end;
+            else {
+              end.setHours (23);
+              end.setMinutes (59);
+            }
+
+          } else {
+            var before_ind = time_str.toLowerCase().indexOf ("ennen");
+            var after_ind = time_str.toLowerCase().indexOf ("jälkeen");
+            if (before_ind > -1) {
+              end = parse_time (end, time_str.substr (before_ind + 5));
+              end.setTime (end.getTime () - 1);
+            } else if (after_ind > -1) {
+              start = parse_time (start, time_str.substr (0, after_ind));
+              start.setTime (start.getTime () + 1);
+            } else {
+              var new_time = parse_time (start, time_str);
+              if (new_time) {
+                start = new_time;
+                end = new Date (start.getTime() + 1);
+              }
+            }
+            /* else failed to parse time */
+
+          }/* else  failed to parse date */
+        }
+      }
+
+      if (start || show_all) {
+        var benefits
+        if (show_all)
+          benefits = get_benefits (gp.benefits);
+        else
+          benefits = get_benefits (gp.benefits, start, end);
+
+        for (var i in benefits) {
+          var benefit = benefits[i];
+          var desc;
+          var used;
+
+          row = document.createElement("tr");
+
+          if (benefit.description)
+            desc = benefit.name + " (" + benefit.description + ")";
+          else
+            desc = benefit.name;
+
+          if (gp.year="")
+            cookie_id = benefit.id;
+          else
+            cookie_id = gp.year + "-" + benefit.id;
+
+          add_check_cell (row, cookie_id, used_benefits[cookie_id]);
+          add_string_cell (row, "td", benefit.id);
+          add_string_cell (row, "td", benefit.course);
+          add_string_cell (row, "td", desc);
+
+          table.appendChild (row);
+        }
+      }
+      div.replaceChild (table, div.firstChild);
+    }
+
+    function on_key_press (entry)
+    {
+      var date_entry = document.getElementById ("date_entry");
+      var time_entry = document.getElementById ("time_entry");
+      reload_table (date_entry.value, time_entry.value);
+    };
+
+    used_benefits = $.cookie("golfpiste-used-benefits");
+    if (!used_benefits)
+      used_benefits = {};
+
+    var date_entry = document.getElementById ("date_entry");
+    date_entry.onkeyup = on_key_press;
+    var time_entry = document.getElementById ("time_entry");
+    time_entry.onkeyup = on_key_press;
+
+    on_key_press ();
+
+  </script>
+
+</body>
+</html>

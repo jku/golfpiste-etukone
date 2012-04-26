@@ -1,0 +1,419 @@
+var gp = {
+	"year":"2012",
+	"benefits":[
+	{
+		"id": "1",
+		"course": "Ekenäs Golfklubb",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu ei ole voimassa heinäkuussa",
+		"limits": [
+		{
+			"start_date": "1.1.2012",
+			"end_date": "30.6.2012",
+		},
+		{
+			"start_date": "1.8.2012",
+			"end_date": "31.12.2012",
+		},
+		]
+	},
+	{
+		"id": "2",
+		"course": "Ekenäs Golfklubb",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa pe-su klo 16 jälkeen",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,1,1,1],
+			"start_time": "16:00",
+		},
+		]
+	},
+	{
+		"id": "3",
+		"course": "Ekenäs Golfklubb",
+		"name": "Päivägreenfee kahdelle yhden hinnalla par 3-kentälle",
+		"description": "",
+	},
+
+	{
+		"id": "4",
+		"course": "Espoo Ringside Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa arkisin ennen klo 14 ja la-su klo 15 jälkeen",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		{
+			"weekdays": [0,0,0,0,0,1,1],
+			"start_time": "15:00",
+		},
+		]
+	},
+
+	{
+		"id": "5",
+		"course": "Espoon Golfseura",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa pe-la klo 15 jälkeen",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,1,1,1],
+			"start_time": "15:00",
+		},
+		]
+	},
+
+	{
+		"id": "6",
+		"course": "Hangon Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "",
+	},
+
+	{
+		"id": "7",
+		"course": "Hiekkaharju Golf Ry",
+		"name": "18 r. green fee Pitkälle ysille kahdelle yhden hinnalla",
+		"description": "",
+	},
+
+	{
+		"id": "8",
+		"course": "Hirvihaaran Golfseura",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 14",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "9",
+		"course": "Kotojärvi Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa ma-pe klo 11 jälkeen ja la-su klo 14 jälkeen",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"start_time": "11:00",
+		},
+		{
+			"weekdays": [0,0,0,0,0,1,1],
+			"start_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "10",
+		"course": "Kotojärvi Golf",
+		"name": "Kaksi päivälippua Rantakentälle yhden hinnalla",
+		"description": "",
+	},
+
+	{
+		"id": "11",
+		"course": "Kurk Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa pe-su klo 15 jälkeen",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,1,1,1],
+			"start_time": "15:00",
+		},
+		]
+	},
+
+	{
+		"id": "12",
+		"course": "Kytäjä Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "",
+	},
+
+	{
+		"id": "13",
+		"course": "Nordcenter G&C Club",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu voimassa arkisin (ma-pe) 22.6. saakka",
+		"limits": [
+		{
+			"end_date": "22.6.2012",
+			"weekdays": [1,1,1,1,1,0,0],
+		},
+		]
+	},
+
+	{
+		"id": "14",
+		"course": "Peuramaa Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa kesä-, heinä- ja elokuussa pe-su klo 15 jälkeen",
+		"limits": [
+		{
+			"start_date": "1.6.2012",
+			"end_date": "31.8.2012",
+			"weekdays": [0,0,0,0,1,1,1],
+			"start_time": "15:00",
+		},
+		]
+	},
+
+	{
+		"id": "15",
+		"course": "Pickala Golf",
+		"name": "Green fee kahdelle yhden hinnalla Park-kentälle",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 14",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "16",
+		"course": "Pickala Golf",
+		"name": "Green fee kahdelle yhden hinnalla Seaside-kentälle",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 14",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "17",
+		"course": "Pickala Golf",
+		"name": "Green fee kahdelle yhden hinnalla Forest-kentälle",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 14",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "18",
+		"course": "Ruukkigolf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "",
+	},
+
+	{
+		"id": "19",
+		"course": "St. Laurence Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 15",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "15:00",
+		},
+		]
+	},
+
+	{
+		"id": "20",
+		"course": "St. Laurence Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa viikonloppuisin klo 14 jälkeen",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,0,1,1],
+			"start_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "21",
+		"course": "St. Laurence Golf",
+		"name": "Green fee kahdelle yhden hinnalla par 3 -kentälle (päivä greenfee)",
+		"description": "",
+	},
+
+	{
+		"id": "22",
+		"course": "Suur-Helsingin Golf",
+		"name": "Green fee kahdelle yhden hinnalla Lakiston kentällä",
+		"description": "Etu on voimassa perjantai-sunnuntai klo 14 jälkeen",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,1,1,1],
+			"start_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "23",
+		"course": "Suur-Helsingin Golf",
+		"name": "Green fee kahdelle yhden hinnalla Luukin kentällä",
+		"description": "Etu on voimassa perjantai-sunnuntai klo 14 jälkeen",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,1,1,1],
+			"start_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "24",
+		"course": "Suur-Helsingin Golf",
+		"name": "Luukin kentällä greenfee + vuokramailat yhteensä 30 euroa",
+		"description": "Etu koskee maanantaisin aloittelijoita joilla on klubitasoitus tai ei vielä green cardia. Edun voi hyödyntää myös kortinhaltijan vieras",
+		"limits": [
+		{
+			"weekdays": [1,0,0,0,0,0,0],
+		},
+		]
+	},
+
+	{
+		"id": "25",
+		"course": "Vihti Golf Center",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa arkisin (ma-pe) 1.5 alkaen",
+		"limits": [
+		{
+			"start_date": "1.5.2012",
+			"weekdays": [1,1,1,1,1,0,0],
+		},
+		]
+	},
+
+	{
+		"id": "26a",
+		"course": "Vuosaari Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on jatkuva ja voimassa ma-pe klo 12 jälkeen 15.9. alkaen",
+		"limits": [
+		{
+			"start_date": "15.9.2012",
+			"weekdays": [1,1,1,1,1,0,0],
+			"start_time": "12:00",
+		},
+		]
+	},
+
+	{
+		"id": "26b",
+		"course": "Vuosaari Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa heinäkuussa",
+		"limits": [
+		{
+			"start_date": "1.7.2012",
+			"end_date": "31.7.2012",
+		},
+		]
+	},
+
+	{
+		"id": "27a",
+		"course": "W-Golf Mäntsälä",
+		"name": "Green fee kahdelle yhden hinnalla tai 18 reiän greenfee yhdelle 15 euroa",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 14",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "27b",
+		"course": "W-Golf Mäntsälä",
+		"name": "Green fee kahdelle yhden hinnalla tai 18 reiän greenfee yhdelle 15 euroa",
+		"description": "Etu on voimassa arkisin (ma-pe) ennen klo 14",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+			"end_time": "14:00",
+		},
+		]
+	},
+
+	{
+		"id": "28",
+		"course": "Kullo Golf Club",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "",
+	},
+
+	{
+		"id": "29",
+		"course": "Porvoo Golf",
+		"name": "Green fee kahdelle yhden hinnalla (normaalihinnoista)",
+		"description": "Etu on voimassa arkisin",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+		},
+		]
+	},
+
+	{
+		"id": "30",
+		"course": "Porvoo Golf",
+		"name": "Green fee kahdelle yhden hinnalla (normaalihinnoista)",
+		"description": "Etu on voimassa viikonloppuisin",
+		"limits": [
+		{
+			"weekdays": [0,0,0,0,0,1,1],
+		},
+		]
+	},
+
+	{
+		"id": "31a",
+		"course": "Virvik Golf",
+		"name": "Green feen ostajalle lounas tai kanakori",
+		"description": "Jatkuva etu, ei yhdistettävissä etuun 31b",
+	},
+
+	{
+		"id": "31b",
+		"course": "Virvik Golf",
+		"name": "Green fee kahdelle yhden hinnalla",
+		"description": "Etu on voimassa arkisin",
+		"limits": [
+		{
+			"weekdays": [1,1,1,1,1,0,0],
+		},
+		]
+	},
+
+/*
+	{
+		"id": "",
+		"course": "",
+		"name": "",
+		"description": "",
+		"limits": [
+		{
+			"start_date": "1.1.2012",
+			"end_date": "31.12.2012",
+			"weekdays": [1,1,1,1,1,0,0],
+			"start_time": "15:00",
+			"end_time": "16:00",
+		},
+		]
+	},
+*/
+
+]};

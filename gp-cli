@@ -1,0 +1,134 @@
+#!/usr/bin/rhino
+
+/* Script to use benefits.js from CLI
+ *
+ * Tested with Rhino 1.7 javascript interpreter 
+ */
+
+load ("benefits.js");
+load ("benefits-2012.json");
+
+function parse_informal_date (date_string)
+{
+  var date = new Date();
+  var extra_days;
+
+  switch (date_string) {
+    case "today":
+      break;
+    case "tomorrow":
+      extra_days = 1;
+      break;
+    case "monday":
+    case "mon":
+      extra_days = 1 - date.getDay();
+      break;
+    case "tuesday":
+    case "tue":
+      extra_days = 2 - date.getDay();
+      break;
+    case "wednesday":
+    case "wed":
+      extra_days = 3 - date.getDay();
+      break;
+    case "thursday":
+    case "thu":
+      extra_days = 4 - date.getDay();
+      break;
+    case "friday":
+    case "fri":
+      extra_days = 5 - date.getDay();
+      break;
+    case "saturday":
+    case "sat":
+      extra_days = 6 - date.getDay();
+      break;
+    case "sunday":
+    case "sun":
+      extra_days = 7 - date.getDay();
+      break;
+    default:
+      date = parse_date (date_string);
+  }
+
+  if (extra_days) {
+    if (extra_days < 1)
+      extra_days += 7;
+    date.setTime (date.getTime() + extra_days * 1000 * 60 * 60 * 24);
+    date.setHours (0);
+    date.setMinutes (0);
+    date.setSeconds (0);
+  }
+
+  return date;
+}
+
+
+var arg_days;
+var arg_date;
+var arg_after;
+var arg_before;
+
+var start;
+var extra_days;
+var end;
+
+
+/* read arguments */
+
+while (arguments.length > 0) {
+  switch (arguments[0]) {
+    case "--days":
+      arg_days = parseInt (arguments[1]);
+      break;
+    case "--date":
+    case "-d":
+      arg_date = arguments[1];
+      break;
+    case "--before":
+    case "-b":
+      arg_before = arguments[1];
+      break;
+    case "--after":
+    case "-a":
+      arg_after = arguments[1];
+      break;
+    default:
+      print ("Unknown argument " + arguments[0]);
+      quit();
+  }
+  arguments.splice (0, 2);
+}
+
+
+/* set initial variables */
+
+if (arg_date)
+  start = parse_informal_date (arg_date);
+else
+  start =  new Date();
+
+end = new Date (start.getTime());
+end.setHours (23);
+end.setMinutes (59);
+end.setSeconds (59);
+
+if (arg_days && arg_days > 0)
+  end.setTime (end.getTime() + (arg_days - 1) * 1000 * 60 * 60 * 24);
+
+if (arg_after)
+  start = parse_time (start, arg_after);
+
+if (arg_before)
+  end = parse_time (end, arg_before);
+
+/* print benefits */
+
+var benefits = get_benefits (gp.benefits, start, end);
+for (var i in benefits) {
+  var benefit = benefits[i];
+
+  print ("#" + benefit.id + " " + benefit.course + ", " + benefit.name);
+  if (benefit.description)
+    print ("   (" + benefit.description + ")");
+}
