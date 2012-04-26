@@ -4,7 +4,7 @@ Search and manage benefits of the http://golfpiste.com membership card.
 Everything is done locally: searching is done in javascript and managing
 the used benefits in cookies.
 
-See http://goto.fi/golfpiste for a live implementation.
+See http://goto.fi/golfpiste for a live implementation (UI in Finnish).
 
 ## Data
 
