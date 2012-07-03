@@ -246,28 +246,43 @@
 
     function reload ()
     {
+      window.clearTimeout (reload_timeout_id);
+      reload_timeout_id = 0;
+
       var date_entry = document.getElementById ("date_entry");
       var time_entry = document.getElementById ("time_entry");
       reload_table (date_entry.value, time_entry.value);
     }
 
-    function on_key_press (event)
+    function on_entry_key_up (event)
     {
-      window.clearTimeout (reload_timeout_id);
-      if (event.keyCode == 13)
+      if (event.keyCode == 13) {
         reload();
-      else
+      } else {
+        window.clearTimeout (reload_timeout_id);
         reload_timeout_id = window.setTimeout ("reload()", 750)
+      }
+    }
+
+    function on_entry_blur ()
+    {
+      if (reload_timeout_id == 0)
+        return;
+
+      reload();
     }
 
     used_benefits = $.cookie("golfpiste-used-benefits");
     if (!used_benefits)
       used_benefits = {};
 
+    /* use onkeyup because onchange only happens when input blurs */
     var date_entry = document.getElementById ("date_entry");
-    date_entry.onkeyup = on_key_press;
+    date_entry.onkeyup = on_entry_key_up;
+    date_entry.onblur = on_entry_blur;
     var time_entry = document.getElementById ("time_entry");
-    time_entry.onkeyup = on_key_press;
+    time_entry.onkeyup = on_entry_key_up;
+    time_entry.onblur = on_entry_blur;
 
     reload ();
 
